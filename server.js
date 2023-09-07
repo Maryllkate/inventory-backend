@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 //require routes here:
-const userRoutes = require("./routes/user.routes");
+const userRoutes = require("./routes/user.route");
 
 const port = 3000;
 const app = express();
@@ -23,7 +23,7 @@ inventoryDB.on('error', console.error.bind(console, "connection error"));
 inventoryDB.on('open', () => console.log("connected to mongoDB Atlas"))
 
 //routes
-// app.use("/api/users", userRoutes);
+app.use("/api", userRoutes);
 
 if(require.main === module){
     app.listen(port, () => console.log(`server is running at ${port}`));
