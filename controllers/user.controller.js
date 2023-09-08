@@ -15,8 +15,40 @@ module.exports.addUser = async (req, res) => {
         await newUser.save();
         res.status(200).json({message: "a new user successfully created"});
     
-    } catch (err) {
-        console.error("Error adding new user", err);
+    } catch (error) {
+        console.error("Error adding new user", error);
         res.status(404).json({message: "an error occured while adding new user"});
     }
 };
+
+module.exports.allUser = async (req, res) => {
+    
+}
+
+module.exports.editUser = async (req, res) => {
+    try {
+        
+        const updateUser = await userModel.findByIdAndUpdate(
+             _id = req.params.id,
+             {
+                firstName : req.body.firstName,
+                middleName : req.body.middleName,
+                lastName : req.body.lastName
+             },
+            {
+                new : true
+            }
+             
+        );
+
+        if(!updateUser){
+            return res.status(404).json({message : "user not found"})
+        }
+
+        res.status(200).json({message : "user successfully updated", userModel: updateUser});
+
+    } catch (error) {
+        console.error("Error updating user", error);
+        res.status(404).json({message: "an error occured while updating the user"});
+    }
+}
